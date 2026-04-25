@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dashboard · Ana Lúcia · The BoB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://randomuser.me" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  .dash-avatar {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid var(--ink);
+  }
+  .dash-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .chart-insight {
+    margin-top: 16px;
+    padding: 14px 16px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--gold);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .chart-insight strong {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--gold);
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="container">
+    <a href="home.html" class="logo">
+      <span class="brand">The <strong>BoB</strong></span>
+      <span class="tagline">The Best of Best</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="index.html">Verticais</a></li>
+      <li><a href="perfil.html">Meu perfil público</a></li>
+      <li><a href="#">Conta</a></li>
+    </ul>
+    <a href="#" class="dash-avatar"><img src="https://randomuser.me/api/portraits/women/44.jpg" alt="" /></a>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <nav class="breadcrumb">
+      <a href="index.html">The BoB</a> / Dashboard · área privada
+    </nav>
+
+    <!-- HERO DASHBOARD -->
+    <section class="dash-hero">
+      <div class="dash-welcome">
+        <div class="eyebrow">Seu painel, Abril 2026</div>
+        <h1>Olá, <em>Ana Lúcia</em>.</h1>
+        <div class="dash-meta">
+          Member ativa · <strong>Legend</strong> em Growth · assinante desde <strong>Fev/2026</strong>
+        </div>
+      </div>
+      <div class="dash-stats">
+        <div class="dash-stat primary">
+          <div class="ds-label">Sua posição</div>
+          <div class="ds-value">#01</div>
+          <div class="ds-sub">Growth · Abr 2026</div>
+        </div>
+        <div class="dash-stat">
+          <div class="ds-label">Movimento do mês</div>
+          <div class="ds-value"><span class="gold">↑ 2</span></div>
+          <div class="ds-sub">de #3 para #1</div>
+        </div>
+        <div class="dash-stat">
+          <div class="ds-label">Score total</div>
+          <div class="ds-value">892</div>
+          <div class="ds-sub">+28 pts vs Março</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VOZ DO BOB PRIVADA -->
+    <section class="bob-voice">
+      <div class="bv-label">
+        <div class="bob-seal">B</div>
+        Voz do The BoB · para você, Abril 2026
+      </div>
+      <p class="bv-text">"O The BoB observa que você subiu 3 posições em 90 dias e lidera Growth este mês. Nesse ritmo, a liderança vira 3 edições consecutivas até Junho se mantiver a frequência atual de publicação. Para blindar a posição, o The BoB sugere três movimentos específicos abaixo, priorizados por impacto estimado no score."</p>
+    </section>
+
+    <!-- EVOLUÇÃO VS BENCHMARK -->
+    <section class="chart-section">
+      <div class="chart-head">
+        <h3>Sua evolução vs mediana do tier Legend</h3>
+        <span class="mono" style="font-size: 11px; color: var(--mute); letter-spacing: 0.14em; text-transform: uppercase;">Últimos 12 meses</span>
+      </div>
+      <div class="chart-wrap">
+        <svg viewBox="0 0 800 300" class="chart-svg" xmlns="http://www.w3.org/2000/svg">
+          <line x1="60" y1="40" x2="60" y2="240" stroke="#0B0B0B" stroke-width="1"/>
+          <line x1="60" y1="240" x2="780" y2="240" stroke="#0B0B0B" stroke-width="1"/>
+          <line x1="60" y1="70" x2="780" y2="70" stroke="#E4E4E4" stroke-width="1" stroke-dasharray="3,3"/>
+          <line x1="60" y1="120" x2="780" y2="120" stroke="#E4E4E4" stroke-width="1" stroke-dasharray="3,3"/>
+          <line x1="60" y1="170" x2="780" y2="170" stroke="#E4E4E4" stroke-width="1" stroke-dasharray="3,3"/>
+          <line x1="60" y1="220" x2="780" y2="220" stroke="#E4E4E4" stroke-width="1" stroke-dasharray="3,3"/>
+          <text x="52" y="74" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="10" fill="#8A8A8A">900</text>
+          <text x="52" y="124" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="10" fill="#8A8A8A">800</text>
+          <text x="52" y="174" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="10" fill="#8A8A8A">700</text>
+          <text x="52" y="224" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="10" fill="#8A8A8A">600</text>
+          <text x="60" y="268" font-family="JetBrains Mono,monospace" font-size="9" fill="#8A8A8A" letter-spacing="1">MAI/25</text>
+          <text x="180" y="268" font-family="JetBrains Mono,monospace" font-size="9" fill="#8A8A8A" letter-spacing="1">JUL</text>
+          <text x="300" y="268" font-family="JetBrains Mono,monospace" font-size="9" fill="#8A8A8A" letter-spacing="1">SET</text>
+          <text x="420" y="268" font-family="JetBrains Mono,monospace" font-size="9" fill="#8A8A8A" letter-spacing="1">NOV</text>
+          <text x="540" y="268" font-family="JetBrains Mono,monospace" font-size="9" fill="#8A8A8A" letter-spacing="1">JAN</text>
+          <text x="660" y="268" font-family="JetBrains Mono,monospace" font-size="9" fill="#8A8A8A" letter-spacing="1">MAR</text>
+          <text x="742" y="268" font-family="JetBrains Mono,monospace" font-size="9" fill="#8A8A8A" letter-spacing="1">ABR/26</text>
+
+          <!-- Fill sob user -->
+          <path d="M 60,210 L 120,206 L 180,200 L 240,195 L 300,185 L 360,175 L 420,165 L 480,150 L 540,135 L 600,115 L 660,98 L 720,80 L 780,68 L 780,240 L 60,240 Z" fill="#B8941F" fill-opacity="0.13"/>
+
+          <!-- Linha mediana do tier (cinza tracejada) -->
+          <polyline points="60,150 120,148 180,145 240,143 300,140 360,138 420,138 480,135 540,132 600,130 660,128 720,125 780,123" fill="none" stroke="#8A8A8A" stroke-width="1.8" stroke-dasharray="5,3"/>
+
+          <!-- Linha user (ouro) -->
+          <polyline points="60,210 120,206 180,200 240,195 300,185 360,175 420,165 480,150 540,135 600,115 660,98 720,80 780,68" fill="none" stroke="#B8941F" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+          <!-- Pontos user -->
+          <circle cx="60" cy="210" r="4" fill="#FFFFFF" stroke="#B8941F" stroke-width="2"/>
+          <circle cx="300" cy="185" r="4" fill="#FFFFFF" stroke="#B8941F" stroke-width="2"/>
+          <circle cx="540" cy="135" r="4" fill="#FFFFFF" stroke="#B8941F" stroke-width="2"/>
+          <circle cx="780" cy="68" r="7" fill="#B8941F"/>
+          <circle cx="780" cy="68" r="3" fill="#FFFFFF"/>
+
+          <!-- Label do ponto atual -->
+          <g transform="translate(695, 36)">
+            <rect x="0" y="0" width="82" height="24" fill="#0B0B0B"/>
+            <text x="41" y="16" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="#FFFFFF" font-weight="700" letter-spacing="1">892 · #1</text>
+          </g>
+
+          <!-- Legenda -->
+          <g transform="translate(60, 18)" font-family="Inter,sans-serif">
+            <rect x="0" y="-2" width="20" height="3" fill="#B8941F"/>
+            <text x="26" y="2" font-size="11.5" fill="#0B0B0B" font-weight="500">Seu score</text>
+            <line x1="140" y1="0" x2="160" y2="0" stroke="#8A8A8A" stroke-width="1.8" stroke-dasharray="3,2"/>
+            <text x="166" y="2" font-size="11.5" fill="#8A8A8A">Mediana do tier Legend</text>
+          </g>
+        </svg>
+      </div>
+      <p class="chart-insight">O The BoB observa que você cresceu <strong>+130 pontos em 12 meses</strong>, 2,3x a mediana do tier Legend. O salto de Janeiro para Abril foi o mais expressivo, puxado principalmente por Autoridade LinkedIn e Mídia Especializada.</p>
+    </section>
+
+    <!-- 5 CRITÉRIOS COM DELTAS -->
+    <section class="deltas-section">
+      <div class="deltas-head">
+        <h2>Seus 5 critérios <em>· Abr vs Mar</em></h2>
+        <span class="mono" style="font-size: 11px; color: var(--mute); letter-spacing: 0.16em; text-transform: uppercase;">Metodologia v2</span>
+      </div>
+
+      <div class="delta-row">
+        <div class="delta-name">Autoridade LinkedIn<span class="weight">25%</span></div>
+        <div class="delta-bar-wrap"><div class="delta-bar"><div class="delta-fill gold" style="width: 95%"></div></div></div>
+        <div class="delta-score">95 <span class="dd up">+3</span></div>
+        <div class="delta-note">+3 pts vs março. Frequência de posts aumentou de 14 para 18/mês, engajamento médio estável.</div>
+      </div>
+
+      <div class="delta-row">
+        <div class="delta-name">Social Ampliado<span class="weight">15%</span></div>
+        <div class="delta-bar-wrap"><div class="delta-bar"><div class="delta-fill" style="width: 72%"></div></div></div>
+        <div class="delta-score">72 <span class="dd same">=</span></div>
+        <div class="delta-note">Manteve. IG estagnado, sem posts novos em 30 dias. Principal gap do mês.</div>
+      </div>
+
+      <div class="delta-row">
+        <div class="delta-name">Mídia Especializada<span class="weight">25%</span></div>
+        <div class="delta-bar-wrap"><div class="delta-bar"><div class="delta-fill gold" style="width: 88%"></div></div></div>
+        <div class="delta-score">88 <span class="dd up">+3</span></div>
+        <div class="delta-note">+3 pts. Entrevista em Meio & Mensagem e menção em Valor puxaram alta.</div>
+      </div>
+
+      <div class="delta-row">
+        <div class="delta-name">Reconhecimento<span class="weight">25%</span></div>
+        <div class="delta-bar-wrap"><div class="delta-bar"><div class="delta-fill gold" style="width: 92%"></div></div></div>
+        <div class="delta-score">92 <span class="dd up">+4</span></div>
+        <div class="delta-note">+4 pts. Palestra no RD Summit e renovação da filiação IAB pesaram.</div>
+      </div>
+
+      <div class="delta-row">
+        <div class="delta-name">Buzz de Marca<span class="weight">10%</span></div>
+        <div class="delta-bar-wrap"><div class="delta-bar"><div class="delta-fill" style="width: 76%"></div></div></div>
+        <div class="delta-score">76 <span class="dd down">-2</span></div>
+        <div class="delta-note">-2 pts. Volume de busca do nome caiu no período, sem cobertura forte.</div>
+      </div>
+    </section>
+
+    <!-- ALERTAS -->
+    <section class="alerts-section">
+      <div class="deltas-head" style="margin-bottom: 20px;">
+        <h2>Alertas <em>do mês</em></h2>
+        <span class="mono" style="font-size: 11px; color: var(--mute); letter-spacing: 0.16em; text-transform: uppercase;">3 novos</span>
+      </div>
+
+      <div class="alerts-grid">
+        <div class="alert">
+          <span class="alert-cat">Movimento de pares</span>
+          <h4 class="alert-title">Concorrente novo entrou no top 5</h4>
+          <p class="alert-body">Fernando Costa estreou em #4 com salto inédito. Monitorar movimento nas próximas edições, pode ameaçar sua posição.</p>
+        </div>
+        <div class="alert">
+          <span class="alert-cat">Performance pessoal</span>
+          <h4 class="alert-title">Seu post de 15/03 viralizou</h4>
+          <p class="alert-body">Thread sobre growth loops rendeu +120 pontos em Authority em 72h. 3x mais engajamento que sua média.</p>
+        </div>
+        <div class="alert">
+          <span class="alert-cat">Ponto cego</span>
+          <h4 class="alert-title">IG parado há 32 dias</h4>
+          <p class="alert-body">Zero post em Instagram no período. Pares do tier postam 4x/mês em média. Gap direto de Social Ampliado.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- RECOMENDAÇÕES COM CTA -->
+    <section class="recs-section">
+      <div class="recs-head">
+        <h2>Recomendações do <em>The BoB</em> · Abril 2026</h2>
+        <p>Três movimentos para blindar a liderança e minimizar gaps. Cada um com plataformas afiliadas curadas para executar em 30 a 60 dias.</p>
+      </div>
+
+      <div class="criterion" style="border-bottom: 1px solid var(--line); padding: 28px 0;">
+        <div class="crit-top">
+          <div class="crit-name">Recomendação 01 · <em style="font-style: italic; color: var(--gold); font-weight: 600;">alta prioridade</em></div>
+          <div class="crit-score" style="font-size: 14px; color: var(--sub); letter-spacing: 0.1em; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">impacto est. +10 pts</div>
+        </div>
+        <p class="bv-text" style="font-size: 18px; margin-bottom: 8px;">Reativar cadência em Instagram para fechar gap de Social Ampliado.</p>
+        <div class="crit-sources">Pares do tier Legend publicam em média 12 posts/mês em IG. Você está em 0 no período. Gap de 13 pts.</div>
+
+        <div class="cta-affiliate">
+          <p class="cta-title">O The BoB recomenda três plataformas curadas para automatizar publicação e recuperar cadência em 30 dias.</p>
+          <div class="plats">
+            <div class="plat">
+              <span class="plat-rank">Opção 01</span>
+              <span class="plat-name">Buffer</span>
+              <p class="plat-desc">Agendamento multiplataforma com IA de repurpose de conteúdo LinkedIn para IG.</p>
+              <div class="plat-meta">
+                <span class="plat-price">R$ 165<small>/mês</small></span>
+                <span class="plat-aff">Afiliado</span>
+              </div>
+              <a href="#" class="plat-btn">Testar 14 dias grátis →</a>
+            </div>
+            <div class="plat">
+              <span class="plat-rank">Opção 02</span>
+              <span class="plat-name">Metricool</span>
+              <p class="plat-desc">Dashboard unificado 8 redes, relatório mensal automático.</p>
+              <div class="plat-meta">
+                <span class="plat-price">R$ 89<small>/mês</small></span>
+                <span class="plat-aff">Afiliado</span>
+              </div>
+              <a href="#" class="plat-btn">Testar 30 dias grátis →</a>
+            </div>
+            <div class="plat">
+              <span class="plat-rank">Opção 03</span>
+              <span class="plat-name">Later</span>
+              <p class="plat-desc">Feito para IG e TikTok, inclui preview visual e geração de hashtags.</p>
+              <div class="plat-meta">
+                <span class="plat-price">R$ 125<small>/mês</small></span>
+                <span class="plat-aff">Afiliado</span>
+              </div>
+              <a href="#" class="plat-btn">Testar 14 dias grátis →</a>
+            </div>
+          </div>
+          <p class="cta-disclaimer">Parceria de afiliação declarada. Use concorrentes fora da lista se preferir, nada trava sua posição no ranking.</p>
+        </div>
+      </div>
+
+      <div class="criterion" style="border-bottom: 1px solid var(--line); padding: 28px 0;">
+        <div class="crit-top">
+          <div class="crit-name">Recomendação 02 · <em style="font-style: italic; color: var(--ink-2); font-weight: 500;">média prioridade</em></div>
+          <div class="crit-score" style="font-size: 14px; color: var(--sub); letter-spacing: 0.1em; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">impacto est. +6 pts</div>
+        </div>
+        <p class="bv-text" style="font-size: 18px; margin-bottom: 8px;">Entrar em 2 podcasts de Growth até Junho para impulsionar Buzz de marca.</p>
+        <div class="crit-sources">Você não aparece em podcast há 6 meses. Pares têm média de 2 participações/trimestre. Lista de 8 podcasts relevantes abaixo.</div>
+
+        <div class="cta-affiliate">
+          <p class="cta-title">Plataformas para você aparecer em podcasts como convidada especializada, sem gastar tempo prospectando.</p>
+          <div class="plats">
+            <div class="plat">
+              <span class="plat-rank">Opção 01</span>
+              <span class="plat-name">PodMatch</span>
+              <p class="plat-desc">Marketplace de podcasters procurando convidados, curadoria por vertical.</p>
+              <div class="plat-meta">
+                <span class="plat-price">R$ 249<small>/mês</small></span>
+                <span class="plat-aff">Afiliado</span>
+              </div>
+              <a href="#" class="plat-btn">Testar 7 dias grátis →</a>
+            </div>
+            <div class="plat">
+              <span class="plat-rank">Opção 02</span>
+              <span class="plat-name">MatchMaker</span>
+              <p class="plat-desc">Mesmo formato, foco em podcasts brasileiros e latam.</p>
+              <div class="plat-meta">
+                <span class="plat-price">R$ 179<small>/mês</small></span>
+                <span class="plat-aff">Afiliado</span>
+              </div>
+              <a href="#" class="plat-btn">Testar 14 dias grátis →</a>
+            </div>
+            <div class="plat">
+              <span class="plat-rank">Opção 03</span>
+              <span class="plat-name">Featured.com</span>
+              <p class="plat-desc">Plataforma de HARO moderna, jornalistas e podcasters buscando fontes especializadas.</p>
+              <div class="plat-meta">
+                <span class="plat-price">R$ 99<small>/mês</small></span>
+                <span class="plat-aff">Afiliado</span>
+              </div>
+              <a href="#" class="plat-btn">Testar grátis →</a>
+            </div>
+          </div>
+          <p class="cta-disclaimer">Parceria declarada. Você também pode prospectar podcasts direto, sem plataforma.</p>
+        </div>
+      </div>
+
+      <div class="criterion" style="padding: 28px 0;">
+        <div class="crit-top">
+          <div class="crit-name">Recomendação 03 · <em style="font-style: italic; color: var(--mute); font-weight: 400;">baixa prioridade</em></div>
+          <div class="crit-score" style="font-size: 14px; color: var(--sub); letter-spacing: 0.1em; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">impacto est. +3 pts</div>
+        </div>
+        <p class="bv-text" style="font-size: 18px; margin-bottom: 8px;">Buscar uma quarta filiação Tier S para maximizar Reconhecimento.</p>
+        <div class="crit-sources">Você já tem ABRADI + IAB (Tier S) e WIM (Tier A). Uma quarta entidade Tier S (ABA, ABEMD, Aberje) leva filiação de 91 para 100 pts no critério.</div>
+        <div class="cta-keep">O The BoB sugere: agende conversa com ABA (Associação Brasileira de Anunciantes). Critério de entrada compatível com seu perfil.</div>
+      </div>
+    </section>
+
+    <!-- COMUNIDADE -->
+    <section class="community-section">
+      <div class="community-card">
+        <div>
+          <h3>Comunidade fechada dos <em>Members</em></h3>
+          <p>Você é 1 de 200 Members ativos em Growth Abr/26. Canal privado no Slack, encontros trimestrais presenciais em SP e RJ, relatórios mensais setoriais.</p>
+        </div>
+        <a href="#" class="btn primary">Abrir Slack da comunidade ↗</a>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="global-footer">
+  <div class="container">
+    <span>Dashboard privado · The BoB</span>
+    <span>Operado por ecommerceCAMP</span>
+  </div>
+</footer>
+
+</body>
+</html>
