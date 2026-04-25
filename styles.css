@@ -2117,9 +2117,9 @@ a { color: inherit; }
   .logo .brand { font-size: 24px; }
   .logo .tagline { font-size: 8px; }
 
-  /* Legends mobile: 4 primeiros em 2x2 (50% cada), 5º ocupa linha inteira */
+  /* Legends mobile: 1º ocupa linha inteira (hero), 2-5 em 2x2 (50% cada) */
   .legends { grid-template-columns: 1fr 1fr; gap: 18px 12px; }
-  .card-legend:nth-child(5) { grid-column: 1 / -1; }
+  .card-legend:nth-child(1) { grid-column: 1 / -1; }
   .card-legend .rank-num { font-size: 42px; }
   .card-legend .name { font-size: 17px; }
   .card-legend .role { font-size: 11.5px; }
@@ -2127,11 +2127,11 @@ a { color: inherit; }
   .card-legend .bob-seal { width: 28px; height: 28px; font-size: 13px; }
   .card-legend .bob-quote { font-size: 11px; line-height: 1.45; }
   .card-legend .bob-block { padding: 10px 0 2px; gap: 10px; }
-  .card-legend:nth-child(5) .rank-num { font-size: 52px; }
-  .card-legend:nth-child(5) .name { font-size: 20px; }
+  .card-legend:nth-child(1) .rank-num { font-size: 52px; }
+  .card-legend:nth-child(1) .name { font-size: 20px; }
 
-  /* Leaders mobile: 2 colunas (3 linhas de 2, último sozinho) */
-  .leaders { grid-template-columns: 1fr 1fr; gap: 12px; }
+  /* Leaders mobile: lista (1 coluna) do 6º em diante */
+  .leaders { grid-template-columns: 1fr; gap: 10px; }
   .card-leader .rank-num { font-size: 30px; }
   .card-leader .name { font-size: 15px; }
 
@@ -2155,7 +2155,6 @@ a { color: inherit; }
   .delta-row .delta-bar-wrap { grid-column: 1 / -1; }
 }
 @media (max-width: 420px) {
-  .leaders { grid-template-columns: 1fr; gap: 10px; }
   .other-lists-grid { grid-template-columns: 1fr; }
   .preview-top5 { grid-template-columns: repeat(2, 1fr); }
   .how-right { grid-template-columns: 1fr; }
