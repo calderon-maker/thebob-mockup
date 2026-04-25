@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dashboard · Scheila F. · The BoB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  .dash-avatar {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid var(--ink);
+  }
+  .dash-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .chart-insight {
+    margin-top: 16px;
+    padding: 14px 16px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--gold);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .chart-insight strong {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--gold);
+  }
+  .real-data-pill {
+    display: inline-block;
+    padding: 2px 8px;
+    background: rgba(184, 148, 31, 0.12);
+    color: var(--gold);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 3px;
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="container">
+    <a href="home.html" class="logo">
+      <span class="brand">The <strong>BoB</strong></span>
+      <span class="tagline">The Best of Best</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="scheila-dashboard.html">Dashboard</a></li>
+      <li><a href="fractional.html">Verticais</a></li>
+      <li><a href="scheila-perfil.html">Meu perfil público</a></li>
+      <li><a href="#">Conta</a></li>
+    </ul>
+    <a href="#" class="dash-avatar"><img src="https://media.licdn.com/dms/image/v2/D4D03AQFuna9ECGHXxg/profile-displayphoto-crop_800_800/B4DZ01C85nIoAI-/0/1774711462662?e=1778716800&amp;v=beta&amp;t=gmewK8fJ9lTGWD_2EDAI8gznCjC5IQpfeiZCCf9YJHk" alt="" onerror="this.src='https://placehold.co/100x100/0A0A0F/B8941F?text=S'" /></a>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <nav class="breadcrumb">
+      <a href="home.html">The BoB</a> / Dashboard · área privada
+    </nav>
+
+    <section class="dash-hero">
+      <div class="dash-welcome">
+        <div class="eyebrow">Seu painel · edição de estreia, 25 Abr 2026</div>
+        <h1>Olá, <em>Scheila</em>.</h1>
+        <div class="dash-meta">
+          Member em ativação · <strong>Legend</strong> em Fractional CMO · primeira coleta <strong>25/04/2026</strong>
+        </div>
+      </div>
+      <div class="dash-stats">
+        <div class="dash-stat primary">
+          <div class="ds-label">Sua posição</div>
+          <div class="ds-value">#01</div>
+          <div class="ds-sub">Fractional CMO · Estreia</div>
+        </div>
+        <div class="dash-stat">
+          <div class="ds-label">LinkedIn followers</div>
+          <div class="ds-value">8,390</div>
+          <div class="ds-sub">+ 8,165 conexões</div>
+        </div>
+        <div class="dash-stat">
+          <div class="ds-label">Posts coletados</div>
+          <div class="ds-value">30</div>
+          <div class="ds-sub">últimos 3 meses</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bob-voice">
+      <div class="bv-label">
+        <div class="bob-seal">B</div>
+        Voz do The BoB · para você, Abril 2026
+      </div>
+      <p class="bv-text">"Você lidera a edição de estreia de Fractional CMO com a maior base orgânica entre os 10 identificados na primeira coleta. The BoB observa que a sua maior alavanca para a próxima edição é Social Ampliado: o gap entre LinkedIn (forte) e Instagram/TikTok (em construção) representa cerca de 30 pontos no score. Três movimentos abaixo, priorizados por impacto estimado."</p>
+    </section>
+
+    <section class="chart-section">
+      <div class="chart-head">
+        <h3>Sua presença em LinkedIn · trajetória</h3>
+        <span class="real-data-pill">dado real · Apify 25/04</span>
+      </div>
+      <div class="chart-wrap">
+        <svg viewBox="0 0 800 300" class="chart-svg" xmlns="http://www.w3.org/2000/svg">
+          <line x1="60" y1="40" x2="60" y2="240" stroke="#0B0B0B" stroke-width="1"/>
+          <line x1="60" y1="240" x2="780" y2="240" stroke="#0B0B0B" stroke-width="1"/>
+          <line x1="60" y1="80" x2="780" y2="80" stroke="#E4E4E4" stroke-width="1" stroke-dasharray="3,3"/>
+          <line x1="60" y1="140" x2="780" y2="140" stroke="#E4E4E4" stroke-width="1" stroke-dasharray="3,3"/>
+          <line x1="60" y1="200" x2="780" y2="200" stroke="#E4E4E4" stroke-width="1" stroke-dasharray="3,3"/>
+          <text x="52" y="84" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="10" fill="#8A8A8A">10k</text>
+          <text x="52" y="144" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="10" fill="#8A8A8A">5k</text>
+          <text x="52" y="204" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="10" fill="#8A8A8A">1k</text>
+          <text x="60" y="268" font-family="JetBrains Mono,monospace" font-size="9" fill="#8A8A8A" letter-spacing="1">2010</text>
+          <text x="220" y="268" font-family="JetBrains Mono,monospace" font-size="9" fill="#8A8A8A" letter-spacing="1">2014</text>
+          <text x="380" y="268" font-family="JetBrains Mono,monospace" font-size="9" fill="#8A8A8A" letter-spacing="1">2018</text>
+          <text x="540" y="268" font-family="JetBrains Mono,monospace" font-size="9" fill="#8A8A8A" letter-spacing="1">2022</text>
+          <text x="730" y="268" font-family="JetBrains Mono,monospace" font-size="9" fill="#8A8A8A" letter-spacing="1">2026</text>
+
+          <path d="M 60,232 L 200,225 L 340,210 L 480,180 L 620,140 L 720,108 L 780,90 L 780,240 L 60,240 Z" fill="#B8941F" fill-opacity="0.13"/>
+          <polyline points="60,232 200,225 340,210 480,180 620,140 720,108 780,90" fill="none" stroke="#B8941F" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+          <circle cx="60" cy="232" r="4" fill="#FFFFFF" stroke="#B8941F" stroke-width="2"/>
+          <circle cx="780" cy="90" r="7" fill="#B8941F"/>
+          <circle cx="780" cy="90" r="3" fill="#FFFFFF"/>
+
+          <g transform="translate(680, 60)">
+            <rect x="0" y="0" width="100" height="22" fill="#0B0B0B"/>
+            <text x="50" y="15" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="#FFFFFF" font-weight="700" letter-spacing="1">8,390 · ABR 26</text>
+          </g>
+          <g transform="translate(60, 18)" font-family="Inter,sans-serif">
+            <rect x="0" y="-2" width="20" height="3" fill="#B8941F"/>
+            <text x="26" y="2" font-size="11.5" fill="#0B0B0B" font-weight="500">Seu LinkedIn followers (estimativa interpolada)</text>
+          </g>
+        </svg>
+      </div>
+      <p class="chart-insight">Você é ativa no LinkedIn desde Abril de 2010, são <strong>16 anos de plataforma</strong>. A curva é ilustrativa: o The BoB começa a coletar histórico mensal real a partir desta edição. Em maio você verá a primeira variação mês-a-mês.</p>
+    </section>
+
+    <section class="deltas-section">
+      <div class="deltas-head">
+        <h2>Seus 5 critérios <em>· edição de estreia</em></h2>
+        <span class="real-data-pill">parcial · score completo em Maio</span>
+      </div>
+
+      <div class="delta-row">
+        <div class="delta-name">Autoridade LinkedIn<span class="weight">25%</span></div>
+        <div class="delta-bar-wrap"><div class="delta-bar"><div class="delta-fill gold" style="width: 82%"></div></div></div>
+        <div class="delta-score">82 <span class="dd same">novo</span></div>
+        <div class="delta-note">8,390 seguidores, 8,165 conexões, 30 posts coletados em 3 meses. Maior base entre os 10 identificados.</div>
+      </div>
+
+      <div class="delta-row">
+        <div class="delta-name">Social Ampliado<span class="weight">15%</span></div>
+        <div class="delta-bar-wrap"><div class="delta-bar"><div class="delta-fill" style="width: 38%"></div></div></div>
+        <div class="delta-score">38 <span class="dd same">novo</span></div>
+        <div class="delta-note">IG @scheilafs com 989 seguidores (25 posts) e TikTok @scheilaf com 7 seguidores. YouTube ainda não localizado.</div>
+      </div>
+
+      <div class="delta-row">
+        <div class="delta-name">Mídia Especializada<span class="weight">20%</span></div>
+        <div class="delta-bar-wrap"><div class="delta-bar"><div class="delta-fill" style="width: 0%; background: #ddd;"></div></div></div>
+        <div class="delta-score">— <span class="dd same">aguardando</span></div>
+        <div class="delta-note">Coleta agendada para Maio. Pipeline rodará Firecrawl em 20 veículos BR para identificar menções dos últimos 12 meses.</div>
+      </div>
+
+      <div class="delta-row">
+        <div class="delta-name">Reconhecimento<span class="weight">25%</span></div>
+        <div class="delta-bar-wrap"><div class="delta-bar"><div class="delta-fill" style="width: 0%; background: #ddd;"></div></div></div>
+        <div class="delta-score">— <span class="dd same">aguardando</span></div>
+        <div class="delta-note">Trajetória profissional já mapeada (IFM, Infraspeak, Ubiminds, The Startup Boost). Filiação institucional (peso 60%) entra em Maio com cruzamento ABRADI/IAB/ABA/Aberje.</div>
+      </div>
+
+      <div class="delta-row">
+        <div class="delta-name">Buzz de Marca<span class="weight">15%</span></div>
+        <div class="delta-bar-wrap"><div class="delta-bar"><div class="delta-fill" style="width: 0%; background: #ddd;"></div></div></div>
+        <div class="delta-score">— <span class="dd same">aguardando</span></div>
+        <div class="delta-note">Google Trends + análise de sentimento Claude entram em Maio.</div>
+      </div>
+    </section>
+
+    <section class="alerts-section">
+      <div class="deltas-head" style="margin-bottom: 20px;">
+        <h2>Alertas <em>desta edição</em></h2>
+        <span class="real-data-pill">3 detectados</span>
+      </div>
+
+      <div class="alerts-grid">
+        <div class="alert">
+          <span class="alert-cat">Liderança orgânica</span>
+          <h4 class="alert-title">Maior base de LinkedIn entre os 10</h4>
+          <p class="alert-body">Seus 8,390 seguidores representam +41% sobre o segundo colocado da edição de estreia. Vantagem se mantida sustenta liderança em Autoridade nos próximos meses.</p>
+        </div>
+        <div class="alert">
+          <span class="alert-cat">Ponto cego</span>
+          <h4 class="alert-title">TikTok identificado mas inativo</h4>
+          <p class="alert-body">@scheilaf existe e tem nome consistente com seu perfil, mas só 7 seguidores e nenhum vídeo público. Reativar ou desligar perfil é decisão estratégica.</p>
+        </div>
+        <div class="alert">
+          <span class="alert-cat">Oportunidade</span>
+          <h4 class="alert-title">Posicionamento internacional inexplorado</h4>
+          <p class="alert-body">Seu about destaca expansão global B2B, mas o conteúdo público está 100% em pt-BR. Posts bilíngues (EN/PT) podem dobrar reach na próxima edição.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="recs-section">
+      <div class="recs-head">
+        <h2>Recomendações do <em>The BoB</em> · 25 Abr 2026</h2>
+        <p>Três movimentos para consolidar a liderança até a edição de Maio. Cada um com plataformas afiliadas curadas.</p>
+      </div>
+
+      <div class="criterion" style="border-bottom: 1px solid var(--line); padding: 28px 0;">
+        <div class="crit-top">
+          <div class="crit-name">Recomendação 01 · <em style="font-style: italic; color: var(--gold); font-weight: 600;">alta prioridade</em></div>
+          <div class="crit-score" style="font-size: 14px; color: var(--sub); letter-spacing: 0.1em; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">impacto est. +20 pts</div>
+        </div>
+        <p class="bv-text" style="font-size: 18px; margin-bottom: 8px;">Acelerar Instagram para fechar o gap de Social Ampliado.</p>
+        <div class="crit-sources">@scheilafs tem 989 seguidores hoje, gap de ~30 pts no score. Cadência de 4 posts/semana até Maio coloca o IG no benchmark do tier.</div>
+
+        <div class="cta-affiliate">
+          <p class="cta-title">Plataformas curadas para automatizar publicação cross-channel:</p>
+          <div class="plats">
+            <div class="plat">
+              <span class="plat-rank">Opção 01</span>
+              <span class="plat-name">Buffer</span>
+              <p class="plat-desc">Repurpose automático de LinkedIn para IG e TikTok com IA, ideal para quem já tem volume em uma plataforma.</p>
+              <div class="plat-meta">
+                <span class="plat-price">R$ 165<small>/mês</small></span>
+                <span class="plat-aff">Afiliado</span>
+              </div>
+              <a href="#" class="plat-btn">Testar 14 dias grátis →</a>
+            </div>
+            <div class="plat">
+              <span class="plat-rank">Opção 02</span>
+              <span class="plat-name">Metricool</span>
+              <p class="plat-desc">Dashboard unificado, relatório mensal automático que serve para reuniões com clientes.</p>
+              <div class="plat-meta">
+                <span class="plat-price">R$ 89<small>/mês</small></span>
+                <span class="plat-aff">Afiliado</span>
+              </div>
+              <a href="#" class="plat-btn">Testar 30 dias grátis →</a>
+            </div>
+            <div class="plat">
+              <span class="plat-rank">Opção 03</span>
+              <span class="plat-name">Later</span>
+              <p class="plat-desc">Foco em IG e TikTok, preview visual e biblioteca de hashtags.</p>
+              <div class="plat-meta">
+                <span class="plat-price">R$ 125<small>/mês</small></span>
+                <span class="plat-aff">Afiliado</span>
+              </div>
+              <a href="#" class="plat-btn">Testar 14 dias grátis →</a>
+            </div>
+          </div>
+          <p class="cta-disclaimer">Parceria de afiliação declarada. Use concorrentes fora da lista se preferir, ranking é blindado.</p>
+        </div>
+      </div>
+
+      <div class="criterion" style="border-bottom: 1px solid var(--line); padding: 28px 0;">
+        <div class="crit-top">
+          <div class="crit-name">Recomendação 02 · <em style="font-style: italic; color: var(--ink-2); font-weight: 500;">média prioridade</em></div>
+          <div class="crit-score" style="font-size: 14px; color: var(--sub); letter-spacing: 0.1em; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">impacto est. +12 pts</div>
+        </div>
+        <p class="bv-text" style="font-size: 18px; margin-bottom: 8px;">Filiar-se à WIM (Women in Marketing Brasil) ou IAB para Maio.</p>
+        <div class="crit-sources">A próxima edição cruza filiação institucional verificada (60% do peso de Reconhecimento). Você ainda não consta nas listas públicas de associados das entidades Tier S e Tier A.</div>
+        <div class="cta-keep">O The BoB sugere agendar conversa com WIM Brasil. Critério de entrada compatível com seu perfil de marketing leadership feminino em B2B internacional.</div>
+      </div>
+
+      <div class="criterion" style="padding: 28px 0;">
+        <div class="crit-top">
+          <div class="crit-name">Recomendação 03 · <em style="font-style: italic; color: var(--mute); font-weight: 400;">baixa prioridade</em></div>
+          <div class="crit-score" style="font-size: 14px; color: var(--sub); letter-spacing: 0.1em; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">impacto est. +5 pts</div>
+        </div>
+        <p class="bv-text" style="font-size: 18px; margin-bottom: 8px;">Posicionamento bilíngue: 1 post EN para cada 2 posts PT.</p>
+        <div class="crit-sources">Seu about destaca atuação global B2B mas o conteúdo público está 100% em português. Posts bilíngues podem dobrar reach orgânico no LinkedIn na próxima edição.</div>
+      </div>
+    </section>
+
+    <section class="community-section">
+      <div class="community-card">
+        <div>
+          <h3>Comunidade fechada dos <em>Members</em></h3>
+          <p>Você é a Member #01 a se cadastrar na vertical Fractional CMO. Canal privado no Slack abre em Maio com os primeiros 10 ranqueados, encontros trimestrais presenciais em SP e RJ, relatórios mensais setoriais.</p>
+        </div>
+        <a href="#" class="btn primary">Abrir Slack da comunidade ↗</a>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="global-footer">
+  <div class="container">
+    <span>Dashboard privado · The BoB · dados coletados em 25/04/2026</span>
+    <span>Operado por ecommerceCAMP</span>
+  </div>
+</footer>
+
+</body>
+</html>
