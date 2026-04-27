@@ -97,6 +97,34 @@ a { color: inherit; }
 }
 .nav-cta:hover { background: var(--ink); color: var(--paper); }
 
+/* ───── LANG SWITCHER (PT/EN/ES) ───── */
+.lang-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.lang-switcher a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+  border: 1px solid transparent;
+  text-decoration: none;
+  line-height: 0;
+  opacity: 0.45;
+  transition: opacity 0.15s ease, border-color 0.15s ease;
+}
+.lang-switcher a:hover { opacity: 0.85; }
+.lang-switcher a.active {
+  opacity: 1;
+  border-color: var(--ink);
+}
+.lang-switcher svg {
+  width: 22px;
+  height: auto;
+  display: block;
+}
+
 /* ───── BREADCRUMB ───── */
 .breadcrumb {
   padding: 22px 0 0;
@@ -2116,6 +2144,9 @@ a { color: inherit; }
   .nav-links { display: none; }
   .logo .brand { font-size: 24px; }
   .logo .tagline { font-size: 8px; }
+  .lang-switcher { gap: 4px; }
+  .lang-switcher a { padding: 2px; }
+  .lang-switcher svg { width: 18px; }
 
   /* Legends mobile: 1º ocupa linha inteira (hero), 2-5 em 2x2 (50% cada) */
   .legends { grid-template-columns: 1fr 1fr; gap: 28px 14px; }

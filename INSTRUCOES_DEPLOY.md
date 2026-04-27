@@ -32,7 +32,8 @@
 ```
 
 **Repo público:** [github.com/calderon-maker/thebob-mockup](https://github.com/calderon-maker/thebob-mockup)
-**URL pública (GitHub Pages):** [calderon-maker.github.io/thebob-mockup/](https://calderon-maker.github.io/thebob-mockup/)
+**URL pública (custom domain):** [thebob.io](https://thebob.io)
+**Fallback (GitHub Pages padrão):** [calderon-maker.github.io/thebob-mockup/](https://calderon-maker.github.io/thebob-mockup/)
 
 ---
 
@@ -110,6 +111,50 @@ Antes de pushar mudança grande (nova vertical, nova edição):
 
 ---
 
+## Domínio próprio (thebob.io)
+
+A pasta tem um arquivo `CNAME` (sem extensão) com o conteúdo `thebob.io`. Esse arquivo é lido pelo GitHub Pages e diz "este é o domínio canônico desse repo". Não editar à mão (o Settings → Pages do GitHub também regrava esse arquivo quando você muda o Custom domain pela UI).
+
+### DNS no provedor do domínio
+
+No painel onde o `thebob.io` foi registrado (Cloudflare, Namecheap, Registro.br, etc.), adicionar os seguintes registros no apex (`thebob.io`, geralmente representado como `@`):
+
+```
+A     @     185.199.108.153
+A     @     185.199.109.153
+A     @     185.199.110.153
+A     @     185.199.111.153
+AAAA  @     2606:50c0:8000::153
+AAAA  @     2606:50c0:8001::153
+AAAA  @     2606:50c0:8002::153
+AAAA  @     2606:50c0:8003::153
+CNAME www   calderon-maker.github.io.
+```
+
+Os 4 IPs (e os 4 IPv6) são fixos do GitHub Pages e raramente mudam. O CNAME `www` é opcional, serve só pra `www.thebob.io` redirecionar pro apex.
+
+Na Cloudflare especificamente, deixar o "Proxy status" desligado (nuvem cinza, não laranja) durante a configuração inicial. Depois que o GitHub emitir o cert HTTPS, pode ligar o proxy se quiser camadas extras de cache/CDN.
+
+### GitHub Pages (Settings → Pages do repo)
+
+1. `Custom domain` → digitar `thebob.io` → Save
+2. Aguardar 5 a 60 minutos pelo "DNS check successful" (o GitHub valida os A records antes de prosseguir)
+3. Marcar `Enforce HTTPS` (só fica habilitável depois do cert Let's Encrypt ser emitido, demora mais alguns minutos)
+
+### Verificação
+
+```bash
+# DNS resolveu para os IPs do GitHub?
+dig +short thebob.io
+
+# Página responde com HTTPS?
+curl -I https://thebob.io
+```
+
+A primeira deve retornar os 4 IPs do bloco 185.199.108-111.153. A segunda deve retornar `HTTP/2 200`.
+
+---
+
 ## Histórico
 
 | Data | Mudança |
@@ -120,3 +165,5 @@ Antes de pushar mudança grande (nova vertical, nova edição):
 | 25/04/2026 | `scheila-perfil.html` e `scheila-dashboard.html` criados com dados reais da Legend #1 |
 | 25/04/2026 | Refinamento mobile: hero #1 em linha inteira, leaders viram listagem horizontal, cards Legend ganham contorno e respiro |
 | 25/04/2026 | Pasta `v3_navegavel/` consolidada como fonte = repo (antes vivia em `/tmp/thebob-mockup-build`) |
+| 27/04/2026 | Switcher de idioma PT/EN/ES (bandeiras SVG inline) adicionado no nav de 7 páginas, sem mexer em paleta ou tipografia |
+| 27/04/2026 | Domínio próprio `thebob.io` configurado: arquivo `CNAME` no repo + DNS A/AAAA records do GitHub Pages no provedor de domínio + Custom domain habilitado em Settings → Pages |
