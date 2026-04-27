@@ -16,8 +16,10 @@
 │
 ├── styles.css                           ← CSS único, todas as páginas dependem
 │
-├── home.html                            ← landing pública (link, preview top 5)
-├── index.html                           ← edição genérica "Growth, Abril 2026" (template)
+├── CNAME                                ← thebob.io, lido pelo GitHub Pages
+│
+├── index.html                           ← landing pública (servida na raiz de thebob.io)
+├── growth.html                          ← edição genérica "Growth, Abril 2026" (template)
 ├── fractional.html                      ← edição real, 10 Fractional CMO BR coletados
 │
 ├── perfil.html                          ← perfil genérico de Member (template)
@@ -42,7 +44,7 @@
 ```bash
 cd "/Users/calderon/Documents/ecamp AI LABs/clientes/thebob.com.br/02_Mockup_Navegavel/v3_navegavel"
 
-# 1. Edita o arquivo que precisa (home.html, styles.css, etc)
+# 1. Edita o arquivo que precisa (index.html, styles.css, etc)
 # 2. Confere o que mudou
 git status
 git diff
@@ -167,3 +169,4 @@ A primeira deve retornar os 4 IPs do bloco 185.199.108-111.153. A segunda deve r
 | 25/04/2026 | Pasta `v3_navegavel/` consolidada como fonte = repo (antes vivia em `/tmp/thebob-mockup-build`) |
 | 27/04/2026 | Switcher de idioma PT/EN/ES (bandeiras SVG inline) adicionado no nav de 7 páginas, sem mexer em paleta ou tipografia |
 | 27/04/2026 | Domínio próprio `thebob.io` configurado: arquivo `CNAME` no repo + DNS A/AAAA records do GitHub Pages no provedor de domínio + Custom domain habilitado em Settings → Pages |
+| 27/04/2026 | Renomeação para alinhar com convenção do GitHub Pages: `home.html` → `index.html` (landing servida na raiz), `index.html` (edição Growth) → `growth.html` (segue padrão das outras verticais como `fractional.html`). Todas as referências internas atualizadas via sed em 8 arquivos. |
