@@ -99,9 +99,12 @@ a { color: inherit; }
 
 /* ───── LANG SWITCHER (PT/EN/ES) ───── */
 .lang-switcher {
-  display: inline-flex;
+  display: flex;
+  flex-direction: row;
   align-items: center;
   gap: 6px;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 .lang-switcher a {
   display: inline-flex;
@@ -111,6 +114,7 @@ a { color: inherit; }
   border: 1px solid transparent;
   text-decoration: none;
   line-height: 0;
+  flex-shrink: 0;
   opacity: 0.45;
   transition: opacity 0.15s ease, border-color 0.15s ease;
 }
@@ -123,6 +127,7 @@ a { color: inherit; }
   width: 22px;
   height: auto;
   display: block;
+  flex-shrink: 0;
 }
 
 /* ───── BREADCRUMB ───── */
