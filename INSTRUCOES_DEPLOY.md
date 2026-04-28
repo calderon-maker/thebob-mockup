@@ -1,8 +1,8 @@
 # Mockup navegável v3, instruções de deploy
 
-> Esta pasta é **simultaneamente** a fonte editável dos mockups **e** o repositório git que alimenta a página pública do TheBob via GitHub Pages. Editar aqui e dar push é tudo que precisa.
+> Esta pasta é **simultaneamente** a fonte editável dos mockups **e** o repositório git que alimenta o TheBob via **Cloudflare Pages**. Trabalha-se em `main` (staging com preview por branch), aprova-se mergeando para `production` (produção em `thebob.io`).
 
-**Última atualização:** 25 de abril de 2026.
+**Última atualização:** 27 de abril de 2026.
 
 ---
 
@@ -15,8 +15,6 @@
 ├── INSTRUCOES_DEPLOY.md                 ← este arquivo
 │
 ├── styles.css                           ← CSS único, todas as páginas dependem
-│
-├── CNAME                                ← thebob.io, lido pelo GitHub Pages
 │
 ├── index.html                           ← landing pública (servida na raiz de thebob.io)
 ├── growth.html                          ← edição genérica "Growth, Abril 2026" (template)
@@ -34,12 +32,17 @@
 ```
 
 **Repo público:** [github.com/calderon-maker/thebob-mockup](https://github.com/calderon-maker/thebob-mockup)
-**URL pública (custom domain):** [thebob.io](https://thebob.io)
-**Fallback (GitHub Pages padrão):** [calderon-maker.github.io/thebob-mockup/](https://calderon-maker.github.io/thebob-mockup/)
+**Produção (branch `production`):** [thebob.io](https://thebob.io)
+**Staging (branch `main`):** [main.thebob-mockup.pages.dev](https://main.thebob-mockup.pages.dev)
+**Preview por branch (qualquer branch dev/feature):** `<branch-slug>.thebob-mockup.pages.dev`
 
 ---
 
 ## Como editar e publicar
+
+O fluxo tem dois passos: **publicar em staging** (push em `main`) e depois **promover pra produção** (merge `main` → `production` e push).
+
+### Passo 1, publicar em staging
 
 ```bash
 cd "/Users/calderon/Documents/ecamp AI LABs/clientes/thebob.com.br/02_Mockup_Navegavel/v3_navegavel"
@@ -49,13 +52,37 @@ cd "/Users/calderon/Documents/ecamp AI LABs/clientes/thebob.com.br/02_Mockup_Nav
 git status
 git diff
 
-# 3. Commit e push
+# 3. Commit e push em main (staging)
+git checkout main
 git add .
 git commit -m "fix: <descrição da mudança>"
 git push origin main
 ```
 
-GitHub Pages reconstrói em ~30-60 s. Para conferir antes do push, abrir o arquivo `.html` direto no Finder (basta duplo-clique).
+Cloudflare Pages reconstrói em ~10s. O resultado fica em `main.thebob-mockup.pages.dev`. Conferir lá antes de promover.
+
+### Passo 2, promover pra produção
+
+Depois de validar em staging, sobe pro `thebob.io`:
+
+```bash
+git checkout production
+git merge main
+git push origin production
+git checkout main          # volta pra branch de trabalho
+```
+
+Cloudflare Pages publica em `thebob.io` em ~10s. Histórico de deploys e rollback ficam disponíveis no painel da Cloudflare Pages.
+
+### Branches de feature (opcional)
+
+Trabalho experimental pode ir em branch própria. Cada push gera preview URL automática:
+
+```bash
+git checkout -b feat/redesign-cards
+# ...edita...
+git push origin feat/redesign-cards   # preview em feat-redesign-cards.thebob-mockup.pages.dev
+```
 
 ---
 
@@ -90,7 +117,7 @@ Para o Sprint 2 (que vai trazer filiação institucional + score completo), vale
 
 ## Como atualizar o card de uma pessoa específica
 
-Cada card no `home.html` ou `fractional.html` tem foto, nome, cargo curto, métricas resumidas e link. Para trocar a foto:
+Cada card no `index.html` ou `fractional.html` tem foto, nome, cargo curto, métricas resumidas e link. Para trocar a foto:
 
 1. Pegar a URL real do `media.licdn.com` no JSON do benchmark, **completa** (com `?e=...&v=beta&t=...`). Cuidado, hashes inventados quebram a imagem (vide bug Paulo/Lara em 25/04).
 2. Substituir o `src` do `<img>` na seção correspondente.
@@ -101,59 +128,56 @@ Para reanimar o cache local enquanto trabalha, abrir o arquivo no navegador com 
 
 ## Checklist de release
 
-Antes de pushar mudança grande (nova vertical, nova edição):
+Antes de promover de staging pra produção (nova vertical, nova edição):
 
 - [ ] `git status` mostra só os arquivos esperados (sem `.bak` vazando)
 - [ ] Abrir cada `.html` modificado no navegador, conferir desktop + mobile (DevTools 375px)
 - [ ] Imagens carregam (sem caixa "B" de fallback) em todos os cards
-- [ ] Links internos funcionam (home → fractional → perfil → dashboard)
+- [ ] Links internos funcionam (index → fractional → perfil → dashboard)
 - [ ] Links externos para LinkedIn abrem em nova aba
-- [ ] Esperar 60s após o push, abrir o GitHub Pages e force-refresh
+- [ ] Push em `main` foi feito, preview em `main.thebob-mockup.pages.dev` está OK
 - [ ] Testar em celular real, iOS e Android se possível
+- [ ] Só então merge `main → production` e push de `production`
 
 ---
 
-## Domínio próprio (thebob.io)
+## Hospedagem (Cloudflare Pages)
 
-A pasta tem um arquivo `CNAME` (sem extensão) com o conteúdo `thebob.io`. Esse arquivo é lido pelo GitHub Pages e diz "este é o domínio canônico desse repo". Não editar à mão (o Settings → Pages do GitHub também regrava esse arquivo quando você muda o Custom domain pela UI).
+O site é servido pelo **Cloudflare Pages** (não GitHub Pages). O repo `calderon-maker/thebob-mockup` está conectado ao projeto `thebob-mockup` na Cloudflare. A cada push, a Cloudflare faz build (estático, sem build step) e publica.
 
-### DNS no provedor do domínio
+### Mapeamento de branch para ambiente
 
-No painel onde o `thebob.io` foi registrado (Cloudflare, Namecheap, Registro.br, etc.), adicionar os seguintes registros no apex (`thebob.io`, geralmente representado como `@`):
+| Branch | Ambiente | URL |
+|---|---|---|
+| `production` | Produção | [thebob.io](https://thebob.io) |
+| `main` | Staging | [main.thebob-mockup.pages.dev](https://main.thebob-mockup.pages.dev) |
+| `feat/*`, `fix/*`, etc. | Preview por branch | `<branch-slug>.thebob-mockup.pages.dev` |
 
-```
-A     @     185.199.108.153
-A     @     185.199.109.153
-A     @     185.199.110.153
-A     @     185.199.111.153
-AAAA  @     2606:50c0:8000::153
-AAAA  @     2606:50c0:8001::153
-AAAA  @     2606:50c0:8002::153
-AAAA  @     2606:50c0:8003::153
-CNAME www   calderon-maker.github.io.
-```
+### Configuração do projeto na Cloudflare Pages
 
-Os 4 IPs (e os 4 IPv6) são fixos do GitHub Pages e raramente mudam. O CNAME `www` é opcional, serve só pra `www.thebob.io` redirecionar pro apex.
+Settings já travados (não mexer sem motivo):
 
-Na Cloudflare especificamente, deixar o "Proxy status" desligado (nuvem cinza, não laranja) durante a configuração inicial. Depois que o GitHub emitir o cert HTTPS, pode ligar o proxy se quiser camadas extras de cache/CDN.
+- Production branch: `production`
+- Build command: vazio (site estático)
+- Build output directory: `/` (raiz do repo)
+- Framework preset: None
+- Node version: irrelevante (não há build)
 
-### GitHub Pages (Settings → Pages do repo)
+### Custom domain (thebob.io)
 
-1. `Custom domain` → digitar `thebob.io` → Save
-2. Aguardar 5 a 60 minutos pelo "DNS check successful" (o GitHub valida os A records antes de prosseguir)
-3. Marcar `Enforce HTTPS` (só fica habilitável depois do cert Let's Encrypt ser emitido, demora mais alguns minutos)
+O `thebob.io` está registrado na mesma conta Cloudflare e foi adicionado como custom domain do projeto Pages. A Cloudflare gerencia DNS, SSL e edge cache automaticamente, sem necessidade de A/AAAA records manuais.
 
 ### Verificação
 
 ```bash
-# DNS resolveu para os IPs do GitHub?
-dig +short thebob.io
-
-# Página responde com HTTPS?
+# Produção respondendo?
 curl -I https://thebob.io
+
+# Staging respondendo?
+curl -I https://main.thebob-mockup.pages.dev
 ```
 
-A primeira deve retornar os 4 IPs do bloco 185.199.108-111.153. A segunda deve retornar `HTTP/2 200`.
+Ambos devem retornar `HTTP/2 200` e header `cf-ray` (que confirma origem Cloudflare).
 
 ---
 
@@ -169,4 +193,6 @@ A primeira deve retornar os 4 IPs do bloco 185.199.108-111.153. A segunda deve r
 | 25/04/2026 | Pasta `v3_navegavel/` consolidada como fonte = repo (antes vivia em `/tmp/thebob-mockup-build`) |
 | 27/04/2026 | Switcher de idioma PT/EN/ES (bandeiras SVG inline) adicionado no nav de 7 páginas, sem mexer em paleta ou tipografia |
 | 27/04/2026 | Domínio próprio `thebob.io` configurado: arquivo `CNAME` no repo + DNS A/AAAA records do GitHub Pages no provedor de domínio + Custom domain habilitado em Settings → Pages |
-| 27/04/2026 | Renomeação para alinhar com convenção do GitHub Pages: `home.html` → `index.html` (landing servida na raiz), `index.html` (edição Growth) → `growth.html` (segue padrão das outras verticais como `fractional.html`). Todas as referências internas atualizadas via sed em 8 arquivos. |
+| 27/04/2026 | Renomeação para alinhar com convenção: `home.html` → `index.html` (landing servida na raiz), `index.html` (edição Growth) → `growth.html` (segue padrão das outras verticais como `fractional.html`). Todas as referências internas atualizadas via sed em 8 arquivos. |
+| 27/04/2026 | "The Best of Best" → "The Best of the Best" em 13 ocorrências (titles, taglines do logo, eyebrow do hero, footer global) em 8 arquivos. |
+| 27/04/2026 | **Migração de hospedagem: GitHub Pages → Cloudflare Pages.** Branch `production` criada apontando pro mesmo commit do `main`. Arquivo `CNAME` removido (Cloudflare Pages tem mecanismo próprio de custom domain). Fluxo de trabalho passa a ser staging em `main` (preview por branch grátis) + produção em `production` (mergeada quando aprovada). Domínio `thebob.io` aponta pro projeto Pages na conta Cloudflare do calderon. |
