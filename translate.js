@@ -16,9 +16,10 @@
 (function () {
   'use strict';
 
-  var BATCH_SIZE = 8;
   var SOURCE_LANG = 'pt-BR';
   var STORAGE_PREFIX = 'bob_translate_';
+  var CHUNK_SEPARATOR = '\n@@##@@\n';
+  var MAX_CHUNK_CHARS = 4000; // limite seguro pro endpoint público do Google
 
   // Termos que NUNCA devem ser traduzidos. Ordem importa, mais longos primeiro
   // para evitar match parcial (ex.: "The Best of the Best" antes de "The BoB",
@@ -54,9 +55,11 @@
     return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
 
-  // Substitui termos da marca por placeholders Unicode raros antes da
-  // tradução. Os caracteres ❯ e ❮ (U+276F e U+276E) são incomuns o
-  // suficiente para o Google Translate deixá-los intactos.
+  // Substitui termos da marca por placeholders neutros antes da tradução.
+  // ATENÇÃO: o placeholder não pode conter palavra reconhecível em
+  // nenhum idioma. Já caímos no bug "BRAND0" → "MARCAO" em espanhol
+  // (o Google traduziu BRAND para MARCA). A sequência "xqp" + número +
+  // "qpx" é puramente artificial e sobrevive a qualquer tradução.
   function protectBrandTerms(text) {
     var map = {};
     var counter = 0;
@@ -65,7 +68,7 @@
       var term = BRAND_TERMS[i];
       var rx = new RegExp(escapeRegex(term), 'g');
       out = out.replace(rx, function (match) {
-        var ph = '❯' + 'BRAND' + counter + '❮';
+        var ph = 'xqp' + counter + 'qpx';
         map[ph] = match;
         counter++;
         return ph;
@@ -162,29 +165,54 @@
       .catch(function () { return text; });
   }
 
+  // Junta todos os text nodes em chunks grandes separados por uma string única
+  // e manda 1 chamada por chunk. Reduz drasticamente o número de round-trips
+  // para o Google Translate.
   function translateBatch(texts, targetLang) {
-    var results = new Array(texts.length);
-    var i = 0;
+    // Quebra os textos em grupos cujo tamanho total (com separadores) caiba
+    // em um único request.
+    var chunks = [[]];
+    var chunkChars = 0;
+    var sepLen = CHUNK_SEPARATOR.length;
 
-    function next() {
-      if (i >= texts.length) return Promise.resolve();
-      var batchStart = i;
-      var batchEnd = Math.min(i + BATCH_SIZE, texts.length);
-      i = batchEnd;
-      var promises = [];
-      for (var j = batchStart; j < batchEnd; j++) {
-        (function (idx) {
-          promises.push(
-            translateText(texts[idx].trim(), targetLang).then(function (out) {
-              results[idx] = out;
-            })
-          );
-        })(j);
+    for (var i = 0; i < texts.length; i++) {
+      var trimmed = texts[i].trim();
+      var addLen = trimmed.length + sepLen;
+      var lastChunk = chunks[chunks.length - 1];
+      if (chunkChars + addLen > MAX_CHUNK_CHARS && lastChunk.length > 0) {
+        chunks.push([]);
+        chunkChars = 0;
       }
-      return Promise.all(promises).then(next);
+      chunks[chunks.length - 1].push(trimmed);
+      chunkChars += addLen;
     }
 
-    return next().then(function () { return results; });
+    // Traduz cada chunk em paralelo (geralmente 1 a 3 chunks por página).
+    var chunkPromises = chunks.map(function (chunk) {
+      var combined = chunk.join(CHUNK_SEPARATOR);
+      return translateText(combined, targetLang).then(function (translated) {
+        return translated.split(CHUNK_SEPARATOR);
+      });
+    });
+
+    return Promise.all(chunkPromises).then(function (chunkResults) {
+      var flat = [];
+      chunkResults.forEach(function (arr) {
+        arr.forEach(function (t) { flat.push(t); });
+      });
+
+      // Sanidade: se o split bagunçou (Google mexeu no separador), faz
+      // fallback pra tradução individual de cada texto.
+      if (flat.length !== texts.length) {
+        console.warn('[translate] split mismatch (' + texts.length +
+          ' inputs, ' + flat.length + ' outputs), fazendo fallback individual');
+        return Promise.all(texts.map(function (t) {
+          return translateText(t.trim(), targetLang);
+        }));
+      }
+
+      return flat;
+    });
   }
 
   function setActiveFlag(lang) {
@@ -217,9 +245,16 @@
     });
   }
 
+  // Chave de cache por página (path) + idioma. Cada HTML tem seu próprio
+  // conjunto de text nodes, então cachear por path evita misses cruzados.
+  function getCacheKey(lang) {
+    var slug = (location.pathname || '/').replace(/[^a-zA-Z0-9]/g, '_') || '_root';
+    return STORAGE_PREFIX + slug + '_' + lang;
+  }
+
   function readCache(lang, expectedLength) {
     try {
-      var raw = sessionStorage.getItem(STORAGE_PREFIX + lang);
+      var raw = sessionStorage.getItem(getCacheKey(lang));
       if (!raw) return null;
       var parsed = JSON.parse(raw);
       return parsed.length === expectedLength ? parsed : null;
@@ -230,7 +265,7 @@
 
   function writeCache(lang, translated) {
     try {
-      sessionStorage.setItem(STORAGE_PREFIX + lang, JSON.stringify(translated));
+      sessionStorage.setItem(getCacheKey(lang), JSON.stringify(translated));
     } catch (e) { /* quota exceeded, ok */ }
   }
 
