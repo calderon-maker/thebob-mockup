@@ -1239,6 +1239,25 @@ a { color: inherit; }
 }
 .home-hero h1 em { font-style: italic; color: var(--ink-2); font-weight: 300; }
 .home-hero h1 strong { font-weight: 700; color: var(--ink); }
+/* Manifesto editorial reutilizável em qualquer hero público */
+.h-manifesto {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(17px, 1.7vw, 22px);
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+  color: var(--ink-2);
+  max-width: 58ch;
+  margin: 0 0 28px;
+  padding-left: 14px;
+  border-left: 2px solid var(--gold);
+}
+.h-manifesto em {
+  font-style: normal;
+  font-weight: 500;
+  color: var(--ink);
+}
 .home-hero .h-lede strong { font-weight: 600; color: var(--ink); font-style: normal; }
 .home-hero .h-lede {
   font-family: 'Fraunces', serif;
