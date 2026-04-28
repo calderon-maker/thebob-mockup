@@ -5,6 +5,10 @@
  * nodes do <body>, traduz em batches paralelos, troca o DOM, cacheia em
  * sessionStorage. Clicar PT restaura os originais salvos em memória.
  *
+ * Termos da marca (The BoB, The Best of the Best, BoBs, entidades parceiras
+ * etc.) são protegidos via placeholders antes da chamada ao Google e
+ * restaurados depois, garantindo que nunca sejam traduzidos.
+ *
  * Para produção real, trocar `translateText` por chamada a um serviço com SLA
  * (DeepL, Google Cloud Translation, Cloudflare Workers AI) e/ou substituir por
  * JSON estático de strings curado por revisão humana.
@@ -15,6 +19,79 @@
   var BATCH_SIZE = 8;
   var SOURCE_LANG = 'pt-BR';
   var STORAGE_PREFIX = 'bob_translate_';
+
+  // Termos que NUNCA devem ser traduzidos. Ordem importa, mais longos primeiro
+  // para evitar match parcial (ex.: "The Best of the Best" antes de "The BoB",
+  // "The BoB of" antes de "The BoB").
+  var BRAND_TERMS = [
+    'The Best of the Best',
+    'TheBestOf',
+    'The BoB of',
+    'the BoB of',
+    'The BoB',
+    'the BoB',
+    'TheBoB',
+    'BoBs',
+    'BoB',
+    'thebob.io',
+    'thebob',
+    'BCX',
+    'ecommerceCAMP',
+    // Entidades parceiras (siglas, devem permanecer literais)
+    'ABRADI', 'IAB', 'WIM', 'ABA', 'Abramark', 'ABO', 'AMPRO', 'ABEMD',
+    'ABEP', 'ABMI', 'IBRAMERC', 'ABRAREC', 'IDV', 'ABComm', 'Aberje',
+    'AKATU', 'Conarec', 'ASPMAG', 'ABMN',
+    // Verticais (mantém em inglês mesmo no PT)
+    'Fractional CMO', 'Growth', 'Performance', 'Brand', 'SEO',
+    // Tiers
+    'Hall of Fame', 'Legends', 'Leaders', 'Rising', 'Watching',
+    // Tech
+    'LinkedIn', 'Instagram', 'TikTok', 'YouTube', 'Apify', 'Firecrawl',
+    'Cloudflare', 'Cloudflare Pages'
+  ];
+
+  function escapeRegex(str) {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  // Substitui termos da marca por placeholders Unicode raros antes da
+  // tradução. Os caracteres ❯ e ❮ (U+276F e U+276E) são incomuns o
+  // suficiente para o Google Translate deixá-los intactos.
+  function protectBrandTerms(text) {
+    var map = {};
+    var counter = 0;
+    var out = text;
+    for (var i = 0; i < BRAND_TERMS.length; i++) {
+      var term = BRAND_TERMS[i];
+      var rx = new RegExp(escapeRegex(term), 'g');
+      out = out.replace(rx, function (match) {
+        var ph = '❯' + 'BRAND' + counter + '❮';
+        map[ph] = match;
+        counter++;
+        return ph;
+      });
+    }
+    return { text: out, map: map };
+  }
+
+  function restoreBrandTerms(text, map) {
+    var out = text;
+    Object.keys(map).forEach(function (ph) {
+      out = out.split(ph).join(map[ph]);
+    });
+    return out;
+  }
+
+  // Limpa artigos órfãos que sobram quando "o The BoB" (PT) é traduzido como
+  // "the The BoB" (EN) ou "el The BoB" (ES). Aplicado depois da restauração.
+  function cleanOrphanArticles(text) {
+    var brandStart = '(The BoB(?:s| of)?|The Best of the Best|TheBestOf|TheBoB)';
+    return text
+      // Inglês: the The BoB → The BoB
+      .replace(new RegExp('\\bthe\\s+' + brandStart, 'gi'), '$1')
+      // Espanhol: el|la|los|las The BoB → The BoB
+      .replace(new RegExp('\\b(?:el|la|los|las)\\s+' + brandStart, 'gi'), '$1');
+  }
 
   var originalSnapshot = null; // [{ node, value }]
   var isTranslating = false;
@@ -63,19 +140,24 @@
   }
 
   function translateText(text, targetLang) {
+    // Protege termos da marca antes de mandar pra API
+    var protectedPayload = protectBrandTerms(text);
     var url =
       'https://translate.googleapis.com/translate_a/single?client=gtx' +
       '&sl=' + encodeURIComponent(SOURCE_LANG) +
       '&tl=' + encodeURIComponent(targetLang) +
-      '&dt=t&q=' + encodeURIComponent(text);
+      '&dt=t&q=' + encodeURIComponent(protectedPayload.text);
 
     return fetch(url)
       .then(function (res) { return res.json(); })
       .then(function (data) {
         if (!data || !Array.isArray(data[0])) return text;
-        return data[0]
+        var translated = data[0]
           .map(function (seg) { return Array.isArray(seg) ? seg[0] : ''; })
           .join('');
+        // Restaura termos da marca e limpa artigos órfãos
+        var restored = restoreBrandTerms(translated, protectedPayload.map);
+        return cleanOrphanArticles(restored);
       })
       .catch(function () { return text; });
   }
