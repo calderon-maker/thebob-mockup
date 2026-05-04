@@ -14,14 +14,19 @@ export const PROPOSTA_HTML = `
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400;1,9..144,500;1,9..144,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --paper: #F5F1E8;
-    --paper-soft: #ECE6D6;
-    --ink: #0A0A0F;
-    --ink-soft: #4A4A52;
-    --ink-mute: #7A7A82;
+    /* Paleta canônica do thebob.io */
+    --paper: #FFFFFF;
+    --paper-soft: #F4F4F4;
+    --softer: #FAFAFA;
+    --ink: #0B0B0B;
+    --ink-2: #1F1F1F;
+    --ink-soft: #4C4C4C;
+    --ink-mute: #8A8A8A;
     --gold: #B8941F;
     --gold-deep: #8C6F18;
-    --rule: #D4CFC0;
+    --gold-soft: #F4EBD0;
+    --rule: #E4E4E4;
+    --rule-strong: #BABABA;
     --green: #2D6A4F;
     --red: #9B2C2C;
     --display: 'Fraunces', Georgia, serif;
@@ -47,67 +52,77 @@ export const PROPOSTA_HTML = `
     padding: 0 32px;
   }
 
-  /* NAV */
+  /* NAV (padrão thebob.io) */
   .nav {
-    border-bottom: 1px solid var(--rule);
-    padding: 24px 0;
+    border-bottom: 1px solid var(--ink);
+    padding: 18px 0;
     background: var(--paper);
     position: sticky;
     top: 0;
     z-index: 100;
-    backdrop-filter: blur(8px);
   }
   .nav .container {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 24px;
   }
   .logo {
+    display: flex;
+    flex-direction: column;
     text-decoration: none;
     color: var(--ink);
     line-height: 1;
+    gap: 4px;
   }
   .brand {
     font-family: var(--display);
-    font-size: 20px;
-    font-weight: 500;
-    letter-spacing: -0.01em;
+    font-size: 30px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
     display: block;
+    color: var(--ink);
   }
   .brand strong {
-    font-style: italic;
-    font-weight: 600;
-    color: var(--gold);
+    font-style: normal;
+    font-weight: 700;
+    color: var(--ink);
   }
   .tagline {
     display: block;
-    font-size: 10px;
+    font-family: var(--mono);
+    font-size: 8.5px;
     text-transform: uppercase;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.28em;
     color: var(--ink-mute);
-    margin-top: 4px;
+    font-weight: 500;
+    margin-top: 0;
   }
   .nav-meta {
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 10px;
     color: var(--ink-mute);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.22em;
+    font-weight: 500;
   }
 
-  /* HERO */
+  /* HERO (padrão thebob.io) */
   .hero {
-    padding: 120px 0 80px;
-    border-bottom: 1px solid var(--rule);
+    padding: 80px 0 64px;
+    border-bottom: 1px solid var(--ink);
   }
   .eyebrow {
     font-family: var(--mono);
     font-size: 11px;
     text-transform: uppercase;
-    letter-spacing: 0.18em;
-    color: var(--gold-deep);
-    margin-bottom: 32px;
+    letter-spacing: 0.24em;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 24px;
     display: inline-block;
+    padding: 6px 12px;
+    border: 1px solid var(--gold);
   }
   .hero-manifesto {
     font-family: var(--display);

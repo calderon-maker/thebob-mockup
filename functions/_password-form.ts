@@ -1,36 +1,38 @@
 /**
- * Tela de "Acesso Restrito" para a Pages Function que protege
- * documentos privados (proposta de fundadores, etc).
+ * Tela de "Acesso Restrito" da Pages Function.
  *
- * Padrão visual canônico do TheBob: paleta Gold Editorial,
- * tipografia Fraunces + Inter, vibe revista premium.
- *
- * Uso:
- *   renderPasswordForm({ title, subtitle, error, action })
+ * Padrão visual canônico do thebob.io:
+ *   - Fundo branco editorial (#FFFFFF)
+ *   - Tipografia: Fraunces (display) + Inter (body) + JetBrains Mono (eyebrow)
+ *   - Ouro #B8941F como acento pontual (eyebrow + border-left do manifesto)
+ *   - Logo "The BoB" + tagline "The Best of the Best" no nav
+ *   - Botão primário ink/paper invertido (mesmo do .btn.primary)
  */
 
 interface FormOptions {
-  /** Texto do título principal, default "Acesso Restrito" */
+  /** Texto do título principal, default editorial */
   title?: string;
-  /** Texto sob o título, default genérico */
-  subtitle?: string;
+  /** Manifesto curto sob o título */
+  manifesto?: string;
   /** Se true, mostra mensagem de erro */
   error?: boolean;
   /** URL pra onde o form faz POST. Default: a própria página. */
   action?: string;
-  /** Tag pequena que aparece sobre o título, default "PROPOSTA · INTERNA" */
-  tag?: string;
+  /** Eyebrow no topo */
+  eyebrow?: string;
 }
 
 export function renderPasswordForm(opts: FormOptions = {}): string {
-  const title = opts.title ?? 'Acesso Restrito';
-  const subtitle =
-    opts.subtitle ??
-    'Insira a senha de acesso para visualizar a proposta de estrutura.';
+  const eyebrow = opts.eyebrow ?? '★ Acesso Restrito · Edição Interna';
+  const title =
+    opts.title ??
+    'Insira a senha para acessar a <em>proposta</em>.';
+  const manifesto =
+    opts.manifesto ??
+    'Documento interno endereçado pessoalmente. O acesso é por senha de uso único e o conteúdo não fica indexado nem em cache.';
   const action = opts.action ?? '';
-  const tag = opts.tag ?? 'PROPOSTA · INTERNA';
   const errorBlock = opts.error
-    ? `<p class="error">Senha incorreta. Confira o convite e tenta de novo.</p>`
+    ? `<p class="auth-error" role="alert">Senha incorreta. Confira o convite e tenta de novo.</p>`
     : '';
 
   return `<!DOCTYPE html>
@@ -40,247 +42,295 @@ export function renderPasswordForm(opts: FormOptions = {}): string {
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
 <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet" />
-<title>${escapeHtml(title)} · The BoB</title>
+<title>Acesso Restrito · The BoB</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --onix: #0A0A0F;
-    --onix-soft: #14141C;
-    --ink: #0A0A0F;
-    --ink-soft: #4A4A52;
-    --ink-mute: #7A7A82;
+    --ink: #0B0B0B;
+    --ink-2: #1F1F1F;
+    --sub: #4C4C4C;
+    --mute: #8A8A8A;
+    --line: #E4E4E4;
+    --line-strong: #BABABA;
+    --soft: #F4F4F4;
+    --softer: #FAFAFA;
+    --paper: #FFFFFF;
     --gold: #B8941F;
-    --gold-deep: #8C6F18;
-    --gold-light: #F4EBD0;
-    --paper: #F5F2E8;
-    --paper-soft: #ECE6D6;
-    --rule: rgba(244, 235, 208, 0.16);
-    --display: 'Fraunces', Georgia, serif;
-    --body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --gold-soft: #F4EBD0;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { height: 100%; }
   body {
-    font-family: var(--body);
-    background:
-      radial-gradient(ellipse at top, rgba(184, 148, 31, 0.12) 0%, transparent 55%),
-      radial-gradient(ellipse at bottom right, rgba(184, 148, 31, 0.05) 0%, transparent 60%),
-      var(--onix);
-    color: var(--paper);
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    font-weight: 400;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    line-height: 1.5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 32px 20px;
-    overflow: hidden;
-    position: relative;
-  }
-  body::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(244, 235, 208, 0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(244, 235, 208, 0.025) 1px, transparent 1px);
-    background-size: 80px 80px;
-    pointer-events: none;
-    z-index: 0;
-  }
-  .card {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 420px;
-    background: rgba(20, 20, 28, 0.85);
-    border: 1px solid var(--rule);
-    border-radius: 18px;
-    padding: 44px 36px 36px;
-    backdrop-filter: blur(24px) saturate(140%);
-    -webkit-backdrop-filter: blur(24px) saturate(140%);
-    box-shadow:
-      0 30px 60px -20px rgba(0, 0, 0, 0.5),
-      inset 0 1px 0 rgba(244, 235, 208, 0.06);
-  }
-  .brand {
-    text-align: center;
-    margin-bottom: 28px;
-  }
-  .brand-mark {
-    font-family: var(--display);
-    font-size: 28px;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    color: var(--paper);
-    line-height: 1;
-  }
-  .brand-mark em {
-    font-style: italic;
-    color: var(--gold);
-    font-weight: 600;
-  }
-  .tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 16px;
-    padding: 6px 14px;
-    border-radius: 999px;
-    background: rgba(184, 148, 31, 0.08);
-    border: 1px solid rgba(184, 148, 31, 0.25);
-    color: var(--gold-light);
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    font-weight: 500;
-  }
-  .tag::before {
-    content: '';
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--gold);
-    box-shadow: 0 0 8px rgba(184, 148, 31, 0.6);
-  }
-  h1 {
-    font-family: var(--display);
-    font-size: 32px;
-    line-height: 1.1;
-    font-weight: 600;
-    letter-spacing: -0.015em;
-    text-align: center;
-    margin-bottom: 12px;
-  }
-  h1 em {
-    font-style: italic;
-    color: var(--gold);
-    font-weight: 600;
-  }
-  .subtitle {
-    text-align: center;
-    color: var(--ink-mute);
-    font-size: 14px;
-    line-height: 1.55;
-    margin-bottom: 32px;
-    max-width: 320px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  form {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    min-height: 100vh;
   }
-  .field {
-    position: relative;
-  }
-  input[type="password"] {
+  ::selection { background: var(--ink); color: var(--paper); }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px;
     width: 100%;
-    padding: 16px 18px;
+  }
+
+  /* NAV (mesmo padrão do site) */
+  .nav {
+    border-bottom: 1px solid var(--ink);
+    padding: 18px 0;
     background: var(--paper);
-    border: 1px solid transparent;
-    border-radius: 12px;
-    font-family: var(--body);
-    font-size: 15px;
+  }
+  .nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+  }
+  .logo {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    line-height: 1;
+    gap: 4px;
+  }
+  .logo .brand {
+    font-family: 'Fraunces', serif;
     font-weight: 400;
+    font-size: 30px;
+    letter-spacing: -0.02em;
     color: var(--ink);
-    letter-spacing: 0.04em;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.05s ease;
-    outline: none;
   }
-  input[type="password"]:focus {
-    border-color: var(--gold);
-    box-shadow: 0 0 0 4px rgba(184, 148, 31, 0.15);
-  }
-  input[type="password"]::placeholder {
-    color: var(--ink-mute);
-    letter-spacing: 0.04em;
-  }
-  button[type="submit"] {
-    background: var(--gold);
-    color: var(--onix);
-    border: none;
-    border-radius: 12px;
-    padding: 16px 24px;
-    font-family: var(--body);
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 0.05em;
+  .logo .brand strong { font-weight: 700; color: var(--ink); }
+  .logo .tagline {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
-    cursor: pointer;
-    transition: background 0.2s ease, transform 0.05s ease, box-shadow 0.2s ease;
+    color: var(--mute);
+    font-weight: 500;
   }
-  button[type="submit"]:hover {
-    background: var(--gold-light);
-    box-shadow: 0 8px 24px -8px rgba(184, 148, 31, 0.5);
-  }
-  button[type="submit"]:active {
-    transform: translateY(1px);
-  }
-  .error {
-    margin-top: -2px;
-    padding: 10px 14px;
-    background: rgba(155, 44, 44, 0.12);
-    border: 1px solid rgba(155, 44, 44, 0.35);
-    border-radius: 10px;
-    color: #ECB7B7;
-    font-size: 13px;
-    line-height: 1.5;
-  }
-  .footer {
-    margin-top: 32px;
-    padding-top: 20px;
-    border-top: 1px solid var(--rule);
-    text-align: center;
+  .nav-mark {
+    font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--ink-mute);
+    color: var(--mute);
     font-weight: 500;
   }
-  .footer strong {
-    color: var(--gold-light);
+
+  /* MAIN */
+  main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 80px 0;
+  }
+  .auth-shell {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 28px;
+    display: inline-block;
+    padding: 6px 12px;
+    border: 1px solid var(--gold);
+  }
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(40px, 5.6vw, 68px);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+    max-width: 18ch;
+  }
+  h1 em { font-style: italic; color: var(--ink-2); font-weight: 300; }
+  h1 strong { font-weight: 700; }
+  .manifesto {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(16px, 1.5vw, 19px);
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 56ch;
+    padding-left: 14px;
+    border-left: 2px solid var(--gold);
+    margin-bottom: 48px;
+  }
+
+  /* FORM */
+  form { display: flex; flex-direction: column; gap: 14px; max-width: 460px; }
+  .field {
+    border-bottom: 1.5px solid var(--ink);
+    padding: 6px 0;
+  }
+  .field-label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--mute);
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  input[type="password"] {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--ink);
+    padding: 8px 0;
+    outline: none;
+    letter-spacing: 0.04em;
+  }
+  input[type="password"]::placeholder {
+    color: var(--mute);
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+  input[type="password"]:focus {
+    outline: none;
+  }
+  .field:focus-within {
+    border-bottom-color: var(--gold);
+  }
+
+  .btn {
+    border: 1px solid var(--ink);
+    padding: 13px 22px;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 500;
+    background: var(--paper);
+    cursor: pointer;
+    display: inline-block;
+    align-self: flex-start;
+    margin-top: 8px;
+    transition: background 0.15s ease, color 0.15s ease;
+    font-family: 'Inter', sans-serif;
+  }
+  .btn.primary { background: var(--ink); color: var(--paper); }
+  .btn.primary:hover { background: var(--paper); color: var(--ink); }
+
+  .auth-error {
+    margin-top: 4px;
+    padding: 10px 14px;
+    border-left: 2px solid #9B2C2C;
+    background: var(--softer);
+    color: #6B1F1F;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.5;
+    max-width: 460px;
+  }
+
+  /* FOOTER */
+  .auth-footer {
+    border-top: 1px solid var(--line);
+    padding: 24px 0;
+    background: var(--paper);
+  }
+  .auth-footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .footer-mark {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    color: var(--sub);
+  }
+  .footer-mark strong { color: var(--ink); font-weight: 700; }
+  .footer-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--mute);
     font-weight: 500;
   }
-  @media (max-width: 480px) {
-    .card { padding: 36px 24px 28px; border-radius: 14px; }
-    h1 { font-size: 26px; }
-    .brand-mark { font-size: 24px; }
+
+  @media (max-width: 600px) {
+    .container { padding: 0 24px; }
+    main { padding: 56px 0; }
+    h1 { font-size: clamp(34px, 9vw, 48px); }
   }
 </style>
 </head>
 <body>
-  <main class="card">
-    <div class="brand">
-      <div class="brand-mark">The <em>BoB</em></div>
-      <div class="tag">${escapeHtml(tag)}</div>
+
+<header class="nav">
+  <div class="container">
+    <a href="https://thebob.io/" class="logo" data-no-translate>
+      <span class="brand">The <strong>BoB</strong></span>
+      <span class="tagline">The Best of the Best</span>
+    </a>
+    <span class="nav-mark">Confidencial</span>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <div class="auth-shell">
+      <span class="eyebrow">${escapeHtml(eyebrow)}</span>
+      <h1>${title}</h1>
+      <p class="manifesto">${escapeHtml(manifesto)}</p>
+
+      <form method="POST" action="${escapeAttr(action)}" autocomplete="off">
+        <div class="field">
+          <label class="field-label" for="password">Senha de acesso</label>
+          <input
+            id="password"
+            type="password"
+            name="password"
+            placeholder="••••••••••"
+            required
+            autofocus
+            autocomplete="current-password"
+            spellcheck="false"
+            minlength="1"
+            maxlength="200"
+          />
+        </div>
+        ${errorBlock}
+        <button type="submit" class="btn primary">Desbloquear →</button>
+      </form>
     </div>
-    <h1>${escapeHtml(title)}</h1>
-    <p class="subtitle">${escapeHtml(subtitle)}</p>
-    ${errorBlock}
-    <form method="POST" action="${escapeAttr(action)}" autocomplete="off">
-      <div class="field">
-        <input
-          type="password"
-          name="password"
-          placeholder="Senha de acesso"
-          required
-          autofocus
-          autocomplete="current-password"
-          spellcheck="false"
-          minlength="1"
-          maxlength="200"
-        />
-      </div>
-      <button type="submit">Desbloquear</button>
-    </form>
-    <div class="footer">
-      The <strong>BoB</strong> &middot; BCX Capital
-    </div>
-  </main>
+  </div>
+</main>
+
+<footer class="auth-footer">
+  <div class="container">
+    <span class="footer-mark">The <strong>BoB</strong> · BCX Capital</span>
+    <span class="footer-meta">Não indexado · Acesso por convite</span>
+  </div>
+</footer>
+
 </body>
 </html>`;
 }
