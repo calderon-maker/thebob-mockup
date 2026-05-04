@@ -1,3 +1,6 @@
+// Auto-gerado a partir de proposta-fundadores.html
+// Embutido para servir via Pages Function com auth
+export const PROPOSTA_HTML = `
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -937,4 +940,4 @@
 </footer>
 
 </body>
-</html>
+</html>`;
