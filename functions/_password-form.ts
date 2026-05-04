@@ -176,11 +176,7 @@ export function renderPasswordForm(opts: FormOptions = {}): string {
   }
 
   /* FORM */
-  form { display: flex; flex-direction: column; gap: 14px; max-width: 460px; }
-  .field {
-    border-bottom: 1.5px solid var(--ink);
-    padding: 6px 0;
-  }
+  form { display: flex; flex-direction: column; gap: 16px; max-width: 460px; }
   .field-label {
     display: block;
     font-family: 'JetBrains Mono', monospace;
@@ -189,7 +185,17 @@ export function renderPasswordForm(opts: FormOptions = {}): string {
     text-transform: uppercase;
     color: var(--mute);
     font-weight: 500;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
+  }
+  .field {
+    border: 1px solid var(--ink);
+    padding: 14px 18px;
+    background: var(--paper);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .field:focus-within {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(184, 148, 31, 0.14);
   }
   input[type="password"] {
     width: 100%;
@@ -199,20 +205,17 @@ export function renderPasswordForm(opts: FormOptions = {}): string {
     font-size: 18px;
     font-weight: 400;
     color: var(--ink);
-    padding: 8px 0;
+    padding: 0;
     outline: none;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.06em;
   }
   input[type="password"]::placeholder {
     color: var(--mute);
     font-weight: 300;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.04em;
   }
   input[type="password"]:focus {
     outline: none;
-  }
-  .field:focus-within {
-    border-bottom-color: var(--gold);
   }
 
   .btn {
@@ -326,7 +329,7 @@ export function renderPasswordForm(opts: FormOptions = {}): string {
 
 <footer class="auth-footer">
   <div class="container">
-    <span class="footer-mark">The <strong>BoB</strong> · BCX Capital</span>
+    <span class="footer-mark">The <strong>BoB</strong></span>
     <span class="footer-meta">Não indexado · Acesso por convite</span>
   </div>
 </footer>
